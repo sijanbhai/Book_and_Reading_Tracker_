@@ -1,39 +1,39 @@
-# 📚 Book and Reading Tracker
+# Book and Reading Tracker
 
 A full-featured Android application for tracking reading progress, managing a personal library, and discovering new books using the Google Books API.
 
-## 🎯 Features
+## Features
 
-### 📊 Dashboard
+### Dashboard
 - **Current Reads**: View all books currently being read with progress indicators
 - **Overall Statistics**: Track total pages read and finished books count
 - **Recent Finished Books**: Quick access to recently completed books with ratings
 
-### 📖 Library
+### Library
 - **Personal Collection**: Manage all books added to your library
 - **Search & Filter**: Find books quickly with real-time search
 - **Progress Tracking**: Visual progress bars showing reading completion
-- **Empty State**: Helpful prompt to add books when library is empty
+- **Empty State**: Suggests adding books from Discover when library is empty
 
-### 🔍 Discover
+### Discover
 - **Google Books Integration**: Search millions of books from Google Books API
 - **Recommendations**: Browse curated book suggestions
 - **Quick Add**: One-tap to add books to your library
 - **Book Details**: View ratings, descriptions, and publishing info
 
-### 📝 Book Details
+### Book Details
 - **Comprehensive Info**: Title, author, cover, rating, page count, published date
 - **Personal Notes**: Add and edit private notes for each book
 - **Reading Progress**: Track pages read with visual progress indicator
 - **Library Management**: Add/remove books from library
 
-### 📄 PDF Reader
+### PDF Reader
 - **Built-in Reader**: Read PDFs directly in the app
 - **Page Navigation**: Navigate with next/previous buttons
 - **Auto Progress**: Reading progress updates automatically
 - **Page Counter**: Always know your current position
 
-## 🏗️ Architecture
+## Architecture
 
 ### Clean Architecture with MVVM
 
@@ -85,7 +85,7 @@ app/
     └── RepositoryModule.kt   # Repository DI
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Core
 - **Kotlin** - Programming language
@@ -156,39 +156,7 @@ All dependencies are managed in `gradle/libs.versions.toml`:
    - Select a device or emulator
    - Click the Run button (▶️) or press Shift+F10
 
-## 🔑 API Configuration
-
-The app uses the Google Books API, which doesn't require an API key for basic usage. If you need higher rate limits:
-
-1. Get an API key from [Google Cloud Console](https://console.cloud.google.com/)
-2. Enable the Books API
-3. Add the key to `local.properties`:
-   ```
-   GOOGLE_BOOKS_API_KEY=your_api_key_here
-   ```
-
-## 📱 Screens
-
-### Bottom Navigation
-- **Dashboard** (Home Icon) - Reading statistics and current reads
-- **Library** (List Icon) - Personal book collection
-- **Discover** (Search Icon) - Browse and search books
-
-### Additional Screens
-- **Book Details** - Detailed book information
-- **PDF Reader** - In-app PDF reading experience
-
-## 🎨 UI/UX Features
-
-- **Material 3 Design** - Modern, adaptive UI
-- **Dark Mode Support** - Automatic theme switching
-- **Edge-to-Edge Display** - Immersive full-screen experience
-- **Smooth Animations** - Polished user interactions
-- **Loading States** - Clear feedback during operations
-- **Empty States** - Helpful messages when no data
-- **Error Handling** - User-friendly error messages
-
-## 📊 Data Model
+## Data Model
 
 ### BookEntity
 ```kotlin
@@ -215,20 +183,8 @@ data class BookEntity(
 - `isCurrentlyReading` - Whether actively reading
 - `isFinished` - Whether book is completed
 
-## 🔄 State Management
 
-Each ViewModel manages UI state using Kotlin Flows:
-
-```kotlin
-data class LibraryState(
-    val books: List<BookEntity> = emptyList(),
-    val searchQuery: String = "",
-    val isLoading: Boolean = false,
-    val isEmpty: Boolean = false
-)
-```
-
-## 🧪 Testing
+## Testing
 
 ### Unit Tests
 Located in `app/src/test/`:
@@ -241,35 +197,9 @@ Located in `app/src/androidTest/`:
 - Database tests
 - UI tests
 
-## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License.
-
-## 👨‍💻 Author
+## Author
 
 Created as a demonstration of modern Android development practices.
-
-## 🙏 Acknowledgments
-
-- **Google Books API** - Book data and cover images
-- **Material Design** - Design guidelines and components
-- **Android Jetpack** - Modern Android libraries
-
-## 📞 Support
-
-For questions or issues, please open an issue on the GitHub repository.
-
----
-
-**Happy Reading! 📚**
 
