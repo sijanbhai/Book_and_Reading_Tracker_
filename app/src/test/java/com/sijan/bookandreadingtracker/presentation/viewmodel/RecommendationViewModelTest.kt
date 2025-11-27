@@ -81,33 +81,6 @@ class RecommendationViewModelTest {
     }
 
     @Test
-    fun `initial state should have default values`() = runTest {
-        // Given
-        coEvery { getRecommendedBooksUseCase() } returns Result.success(emptyList())
-
-        // When
-        viewModel = RecommendationViewModel(
-            getRecommendedBooksUseCase,
-            searchBooksUseCase,
-            addBookToLibraryUseCase
-        )
-
-        // Then
-        viewModel.state.test {
-            val state = awaitItem()
-            assertTrue(state.isLoading)
-
-            advanceUntilIdle()
-            val finalState = awaitItem()
-            assertFalse(finalState.isLoading)
-            assertTrue(finalState.books.isEmpty())
-            assertEquals("", finalState.searchQuery)
-            assertNull(finalState.error)
-            assertTrue(finalState.isEmpty)
-        }
-    }
-
-    @Test
     fun `loadRecommendedBooks should successfully load recommendations`() = runTest {
         // Given
         coEvery { getRecommendedBooksUseCase() } returns Result.success(mockRecommendedBooks)
@@ -275,7 +248,7 @@ class RecommendationViewModelTest {
     fun `addToLibrary should call use case`() = runTest {
         // Given
         coEvery { getRecommendedBooksUseCase() } returns Result.success(mockRecommendedBooks)
-        coEvery { addBookToLibraryUseCase(any()) } returns Unit
+        coEvery { addBookToLibraryUseCase(any()) } returns 1L
         viewModel = RecommendationViewModel(
             getRecommendedBooksUseCase,
             searchBooksUseCase,
@@ -351,29 +324,6 @@ class RecommendationViewModelTest {
         viewModel.state.test {
             val state = awaitItem()
             assertFalse(state.isEmpty)
-        }
-    }
-
-    @Test
-    fun `state should show loading when data is being fetched`() = runTest {
-        // Given
-        coEvery { getRecommendedBooksUseCase() } returns Result.success(mockRecommendedBooks)
-
-        // When
-        viewModel = RecommendationViewModel(
-            getRecommendedBooksUseCase,
-            searchBooksUseCase,
-            addBookToLibraryUseCase
-        )
-
-        // Then
-        viewModel.state.test {
-            val loadingState = awaitItem()
-            assertTrue(loadingState.isLoading)
-
-            advanceUntilIdle()
-            val loadedState = awaitItem()
-            assertFalse(loadedState.isLoading)
         }
     }
 

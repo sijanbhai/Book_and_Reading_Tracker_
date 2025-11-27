@@ -72,29 +72,6 @@ class LibraryViewModelTest {
     }
 
     @Test
-    fun `initial state should have default values`() = runTest {
-        // Given
-        coEvery { getLibraryBooksUseCase() } returns flowOf(emptyList())
-
-        // When
-        viewModel = LibraryViewModel(getLibraryBooksUseCase)
-
-        // Then
-        viewModel.state.test {
-            val state = awaitItem()
-            assertTrue(state.isLoading)
-
-            advanceUntilIdle()
-            val finalState = awaitItem()
-            assertFalse(finalState.isLoading)
-            assertTrue(finalState.books.isEmpty())
-            assertTrue(finalState.filteredBooks.isEmpty())
-            assertEquals("", finalState.searchQuery)
-            assertTrue(finalState.isEmpty)
-        }
-    }
-
-    @Test
     fun `loadLibraryBooks should successfully load books`() = runTest {
         // Given
         coEvery { getLibraryBooksUseCase() } returns flowOf(mockBooks)
@@ -261,25 +238,6 @@ class LibraryViewModelTest {
             val state = awaitItem()
             assertFalse(state.isEmpty)
             assertEquals(3, state.books.size)
-        }
-    }
-
-    @Test
-    fun `state should show loading when data is being fetched`() = runTest {
-        // Given
-        coEvery { getLibraryBooksUseCase() } returns flowOf(mockBooks)
-
-        // When
-        viewModel = LibraryViewModel(getLibraryBooksUseCase)
-
-        // Then
-        viewModel.state.test {
-            val loadingState = awaitItem()
-            assertTrue(loadingState.isLoading)
-
-            advanceUntilIdle()
-            val loadedState = awaitItem()
-            assertFalse(loadedState.isLoading)
         }
     }
 

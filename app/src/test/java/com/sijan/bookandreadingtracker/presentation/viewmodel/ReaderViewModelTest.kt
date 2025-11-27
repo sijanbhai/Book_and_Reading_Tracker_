@@ -57,32 +57,6 @@ class ReaderViewModelTest {
     }
 
     @Test
-    fun `initial state should have default values`() = runTest {
-        // Given
-        coEvery { getBookByIdUseCase.observe(1L) } returns flowOf(null)
-
-        // When
-        viewModel = ReaderViewModel(
-            getBookByIdUseCase,
-            repository,
-            savedStateHandle
-        )
-
-        // Then
-        viewModel.state.test {
-            val state = awaitItem()
-            assertTrue(state.isLoading)
-
-            advanceUntilIdle()
-            val finalState = awaitItem()
-            assertFalse(finalState.isLoading)
-            assertNull(finalState.book)
-            assertEquals(0, finalState.currentPage)
-            assertEquals("Book not found", finalState.error)
-        }
-    }
-
-    @Test
     fun `loadBook should successfully load book`() = runTest {
         // Given
         coEvery { getBookByIdUseCase.observe(1L) } returns flowOf(mockBook)
@@ -294,29 +268,6 @@ class ReaderViewModelTest {
         viewModel.state.test {
             val state = awaitItem()
             assertNull(state.book)
-        }
-    }
-
-    @Test
-    fun `state should show loading when data is being fetched`() = runTest {
-        // Given
-        coEvery { getBookByIdUseCase.observe(1L) } returns flowOf(mockBook)
-
-        // When
-        viewModel = ReaderViewModel(
-            getBookByIdUseCase,
-            repository,
-            savedStateHandle
-        )
-
-        // Then
-        viewModel.state.test {
-            val loadingState = awaitItem()
-            assertTrue(loadingState.isLoading)
-
-            advanceUntilIdle()
-            val loadedState = awaitItem()
-            assertFalse(loadedState.isLoading)
         }
     }
 

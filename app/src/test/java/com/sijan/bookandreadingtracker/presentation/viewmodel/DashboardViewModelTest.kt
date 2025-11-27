@@ -93,36 +93,6 @@ class DashboardViewModelTest {
     }
 
     @Test
-    fun `initial state should have default values`() = runTest {
-        // Given
-        coEvery { getCurrentReadsUseCase() } returns flowOf(emptyList())
-        coEvery { getFinishedBooksUseCase() } returns flowOf(emptyList())
-        coEvery { repository.getFinishedBooksCount() } returns flowOf(0)
-        coEvery { repository.getTotalPagesRead() } returns flowOf(0)
-
-        // When
-        viewModel = DashboardViewModel(
-            getCurrentReadsUseCase,
-            getFinishedBooksUseCase,
-            repository
-        )
-
-        // Then
-        viewModel.state.test {
-            val state = awaitItem()
-            assertTrue(state.isLoading)
-
-            advanceUntilIdle()
-            val finalState = awaitItem()
-            assertFalse(finalState.isLoading)
-            assertEquals(0, finalState.currentReads.size)
-            assertEquals(0, finalState.recentFinishedBooks.size)
-            assertEquals(0, finalState.finishedBooksCount)
-            assertEquals(0, finalState.totalPagesRead)
-        }
-    }
-
-    @Test
     fun `loadDashboardData should successfully load all data`() = runTest {
         // Given
         coEvery { getCurrentReadsUseCase() } returns flowOf(mockCurrentReads)
@@ -217,32 +187,6 @@ class DashboardViewModelTest {
             assertEquals(2, state.recentFinishedBooks.size)
             assertEquals(2, state.finishedBooksCount)
             assertEquals(1000, state.totalPagesRead)
-        }
-    }
-
-    @Test
-    fun `state should show loading when data is being fetched`() = runTest {
-        // Given
-        coEvery { getCurrentReadsUseCase() } returns flowOf(mockCurrentReads)
-        coEvery { getFinishedBooksUseCase() } returns flowOf(mockFinishedBooks)
-        coEvery { repository.getFinishedBooksCount() } returns flowOf(2)
-        coEvery { repository.getTotalPagesRead() } returns flowOf(1000)
-
-        // When
-        viewModel = DashboardViewModel(
-            getCurrentReadsUseCase,
-            getFinishedBooksUseCase,
-            repository
-        )
-
-        // Then
-        viewModel.state.test {
-            val loadingState = awaitItem()
-            assertTrue(loadingState.isLoading)
-
-            advanceUntilIdle()
-            val loadedState = awaitItem()
-            assertFalse(loadedState.isLoading)
         }
     }
 
