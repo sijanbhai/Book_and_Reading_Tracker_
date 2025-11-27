@@ -32,7 +32,7 @@ fun LibraryScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var searchText by remember { mutableStateOf("") }
-
+    
     Scaffold(
         topBar = {
             TopAppBar(
@@ -68,7 +68,7 @@ fun LibraryScreen(
                     singleLine = true
                 )
             }
-
+            
             // Content
             if (state.isEmpty) {
                 EmptyLibraryState(onAddBooksClick)
@@ -88,7 +88,7 @@ fun LibraryScreen(
                 }
             }
         }
-
+        
         if (state.isLoading) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -130,7 +130,7 @@ fun LibraryBookCard(book: BookEntity, onBookClick: (Long) -> Unit) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1
                 )
-
+                
                 if (book.pagesRead > 0) {
                     Spacer(modifier = Modifier.height(4.dp))
                     LinearProgressIndicator(

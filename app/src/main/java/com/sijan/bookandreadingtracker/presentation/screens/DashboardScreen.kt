@@ -29,7 +29,7 @@ fun DashboardScreen(
     viewModel: DashboardViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-
+    
     Scaffold(
         topBar = {
             TopAppBar(
@@ -56,7 +56,7 @@ fun DashboardScreen(
                     totalPages = state.totalPagesRead
                 )
             }
-
+            
             // Current Reads
             if (state.currentReads.isNotEmpty()) {
                 item {
@@ -76,7 +76,7 @@ fun DashboardScreen(
                     }
                 }
             }
-
+            
             // Recent Finished Books
             if (state.recentFinishedBooks.isNotEmpty()) {
                 item {
@@ -90,7 +90,7 @@ fun DashboardScreen(
                     FinishedBookItem(book, onBookClick)
                 }
             }
-
+            
             // Empty State
             if (state.currentReads.isEmpty() && state.recentFinishedBooks.isEmpty() && !state.isLoading) {
                 item {
@@ -98,7 +98,7 @@ fun DashboardScreen(
                 }
             }
         }
-
+        
         if (state.isLoading) {
             Box(
                 modifier = Modifier.fillMaxSize(),
