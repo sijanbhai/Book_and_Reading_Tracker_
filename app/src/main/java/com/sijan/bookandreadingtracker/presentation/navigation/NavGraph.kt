@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -24,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.sijan.bookandreadingtracker.presentation.screens.BookDetailsScreen
 import com.sijan.bookandreadingtracker.presentation.screens.DashboardScreen
 import com.sijan.bookandreadingtracker.presentation.screens.LibraryScreen
+import com.sijan.bookandreadingtracker.presentation.screens.ProfileScreen
 import com.sijan.bookandreadingtracker.presentation.screens.ReaderScreen
 import com.sijan.bookandreadingtracker.presentation.screens.RecommendationScreen
 
@@ -52,7 +54,8 @@ fun BottomNavigationBar(navController: NavHostController) {
     val bottomNavItems = listOf(
         BottomNavItem(Screen.Dashboard, Icons.Default.Home, "Dashboard"),
         BottomNavItem(Screen.Library, Icons.Default.List, "Library"),
-        BottomNavItem(Screen.Recommendation, Icons.Default.Search, "Discover")
+        BottomNavItem(Screen.Recommendation, Icons.Default.Search, "Discover"),
+        BottomNavItem(Screen.Profile, Icons.Default.Person, "Profile")
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -62,7 +65,8 @@ fun BottomNavigationBar(navController: NavHostController) {
     val showBottomBar = currentDestination?.route in listOf(
         Screen.Dashboard.route,
         Screen.Library.route,
-        Screen.Recommendation.route
+        Screen.Recommendation.route,
+        Screen.Profile.route
     )
 
     if (showBottomBar) {
@@ -124,6 +128,10 @@ fun NavGraph(
                     navController.navigate(Screen.BookDetails.createRoute(bookId))
                 }
             )
+        }
+
+        composable(Screen.Profile.route) {
+            ProfileScreen()
         }
 
         composable(Screen.BookDetails.route) {

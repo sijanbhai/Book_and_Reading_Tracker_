@@ -1,6 +1,8 @@
 package com.sijan.bookandreadingtracker.di
 
+import com.sijan.bookandreadingtracker.data.repository.AuthRepositoryImpl
 import com.sijan.bookandreadingtracker.data.repository.BookRepositoryImpl
+import com.sijan.bookandreadingtracker.domain.repository.AuthRepository
 import com.sijan.bookandreadingtracker.domain.repository.BookRepository
 import dagger.Binds
 import dagger.Module
@@ -17,5 +19,11 @@ abstract class RepositoryModule {
     abstract fun bindBookRepository(
         bookRepositoryImpl: BookRepositoryImpl
     ): BookRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAuthRepository(
+        authRepositoryImpl: AuthRepositoryImpl
+    ): AuthRepository
 }
 
